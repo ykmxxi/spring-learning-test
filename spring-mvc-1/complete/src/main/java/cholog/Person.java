@@ -1,8 +1,11 @@
 package cholog;
 
 public class Person {
+
     private String name;
     private int age;
+
+    protected Person() {}
 
     public Person(String name, int age) {
         this.name = name;
@@ -16,4 +19,5 @@ public class Person {
     public int getAge() {
         return age;
     }
+
 }
