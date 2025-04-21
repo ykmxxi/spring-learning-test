@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class MemberController {
@@ -19,41 +22,45 @@ public class MemberController {
     private final AtomicLong index = new AtomicLong(1);
 
     @PostMapping("/members")
-    public ResponseEntity<Void> create() {
-        // TODO: member 정보를 받아서 생성한다.
-        Member newMember = Member.toEntity(null, index.getAndIncrement());
+    public ResponseEntity<Void> create(
+            @RequestBody final Member member
+    ) {
+        Member newMember = Member.toEntity(member, index.getAndIncrement());
         members.add(newMember);
         return ResponseEntity.created(URI.create("/members/" + newMember.getId())).build();
     }
 
     @GetMapping("/members")
     public ResponseEntity<List<Member>> read() {
-        // TODO: 저장된 모든 member 정보를 반환한다.
-        return null;
+        return ResponseEntity.ok(members);
     }
 
     @PutMapping("/members/{id}")
-    public ResponseEntity<Void> update() {
-        // TODO: member의 수정 정보와 url 상의 id 정보를 받아 member 정보를 수정한다.
+    public ResponseEntity<Void> update(
+            @PathVariable(name = "id") final Long id,
+            @RequestBody final Member updateMember
+    ) {
         Member member = members.stream()
-            .filter(it -> Objects.equals(it.getId(), null))
-            .findFirst()
-            .orElseThrow(RuntimeException::new);
+                .filter(it -> Objects.equals(it.getId(), id))
+                .findFirst()
+                .orElseThrow(RuntimeException::new);
 
-        member.update(null);
-        return null;
+        member.update(updateMember);
+        System.out.println(member);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/members/{id}")
-    public ResponseEntity<Void> delete() {
-        // TODO: url 상의 id 정보를 받아 member를 삭제한다.
+    public ResponseEntity<Void> delete(
+            @PathVariable(name = "id") final Long id
+    ) {
         Member member = members.stream()
-            .filter(it -> Objects.equals(it.getId(), null))
-            .findFirst()
-            .orElseThrow(RuntimeException::new);
+                .filter(it -> Objects.equals(it.getId(), id))
+                .findFirst()
+                .orElseThrow(RuntimeException::new);
 
         members.remove(member);
 
-        return null;
+        return ResponseEntity.noContent().build();
     }
 }

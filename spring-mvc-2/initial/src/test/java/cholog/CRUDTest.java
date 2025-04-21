@@ -65,5 +65,4 @@ class CRUDTest {
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.NO_CONTENT.value());
     }
-
 }
