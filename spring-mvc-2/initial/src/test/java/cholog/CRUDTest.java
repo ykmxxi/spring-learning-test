@@ -1,17 +1,19 @@
 package cholog;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.DirtiesContext;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class CRUDTest {
+
     @Test
     void create() {
         var response = RestAssured
@@ -63,4 +65,5 @@ class CRUDTest {
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.NO_CONTENT.value());
     }
+
 }

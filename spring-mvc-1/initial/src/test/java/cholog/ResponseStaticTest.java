@@ -30,5 +30,4 @@ class ResponseStaticTest {
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
-
 }
