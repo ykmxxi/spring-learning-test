@@ -5,10 +5,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AutowiredBean {
+
     /*
     어떤 방법으로 Component에 Bean을 주입하는지 학습하기
      */
-    private SpringBean springBean;
+    private final SpringBean springBean;
+
+    @Autowired
+    public AutowiredBean(final SpringBean springBean) {
+        this.springBean = springBean;
+    }
 
     public String sayHello() {
         return springBean.hello();

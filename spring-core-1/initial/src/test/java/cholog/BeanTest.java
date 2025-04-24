@@ -1,14 +1,16 @@
 package cholog;
 
-import cholog.bean.AutowiredBean;
-import cholog.bean.SpringBean;
+import static cholog.utils.ContextUtils.getApplicationContext;
+import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 
-import static cholog.utils.ContextUtils.getApplicationContext;
-import static org.assertj.core.api.Assertions.assertThat;
+import cholog.bean.AutowiredBean;
+import cholog.bean.SpringBean;
 
-public class BeanTest {
+class BeanTest {
 
     @Test
     void registerBean() {

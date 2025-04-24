@@ -1,15 +1,17 @@
 package cholog;
 
-import cholog.di.ConstructorInjection;
-import cholog.di.FieldInjection;
-import cholog.di.SetterInjection;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.ApplicationContext;
-
 import static cholog.utils.ContextUtils.getApplicationContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DependencyInjectionTest {
+import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+
+import cholog.di.ConstructorInjection;
+import cholog.di.FieldInjection;
+import cholog.di.SetterInjection;
+
+class DependencyInjectionTest {
+
     @Test
     void constructorInjection() {
         ApplicationContext context = getApplicationContext();
