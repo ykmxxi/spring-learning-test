@@ -1,20 +1,23 @@
 package cholog;
 
-import cholog.auth.dto.MemberResponse;
-import cholog.auth.dto.TokenRequest;
-import cholog.auth.dto.TokenResponse;
-import io.restassured.RestAssured;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import cholog.auth.dto.MemberResponse;
+import cholog.auth.dto.TokenRequest;
+import cholog.auth.dto.TokenResponse;
+import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthTest {
+
     private static final String USERNAME_FIELD = "email";
     private static final String PASSWORD_FIELD = "password";
     private static final String EMAIL = "email@email.com";
@@ -28,6 +31,7 @@ class AuthTest {
         RestAssured.port = port;
     }
 
+    @DisplayName("Basic Auth: 헤더의 authorization: {username:password} base64 인코딩 값")
     @Test
     void basicLogin() {
         MemberResponse member = RestAssured
@@ -41,6 +45,7 @@ class AuthTest {
         assertThat(member.getEmail()).isEqualTo(EMAIL);
     }
 
+    @DisplayName("세션: 최초 요청은 Set-Cookie 헤더에 JSESSIONID 응답해야 함")
     @Test
     void sessionLogin() {
         String cookie = RestAssured

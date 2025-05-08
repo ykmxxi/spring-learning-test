@@ -1,11 +1,12 @@
 package cholog.auth.infrastructure;
 
-import cholog.auth.dto.AuthInfo;
-import jakarta.servlet.http.HttpServletRequest;
 import org.apache.tomcat.util.codec.binary.Base64;
 
+import cholog.auth.dto.AuthInfo;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class BasicAuthorizationExtractor implements AuthorizationExtractor<AuthInfo> {
+
     private static final String BASIC_TYPE = "Basic";
     private static final String DELIMITER = ":";
 
