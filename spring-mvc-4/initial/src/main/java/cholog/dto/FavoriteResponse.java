@@ -1,6 +1,7 @@
 package cholog.dto;
 
 public class FavoriteResponse {
+
     private Long id;
     private Long source;
     private Long target;

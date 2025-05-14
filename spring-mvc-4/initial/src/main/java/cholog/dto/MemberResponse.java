@@ -1,6 +1,7 @@
 package cholog.dto;
 
 public class MemberResponse {
+
     private Long id;
     private String email;
     private Integer age;

@@ -1,17 +1,18 @@
 package cholog;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @DataJpaTest
-public class ManyToOneTest {
+class ManyToOneTest {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -25,10 +26,10 @@ public class ManyToOneTest {
     @Test
     void uniDirection() {
         Publisher publisher = new Publisher("출판사");
-        entityManager.persist(publisher);
+        entityManager.persist(publisher); // 1차 캐시에 저장 -> 영속성 컨텍스트에 저장하는 것
 
         Book book = new Book("책", publisher);
-        entityManager.persist(book);
+        entityManager.persist(book); // 1차 캐시에 저장
 
         Book persistBook = entityManager.find(Book.class, book.getId());
 
