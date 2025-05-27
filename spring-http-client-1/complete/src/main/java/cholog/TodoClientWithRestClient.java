@@ -1,11 +1,12 @@
 package cholog;
 
-import org.springframework.web.client.RestClient;
-
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.web.client.RestClient;
+
 public class TodoClientWithRestClient {
+
     private final RestClient restClient;
 
     public TodoClientWithRestClient(RestClient restClient) {
@@ -26,7 +27,7 @@ public class TodoClientWithRestClient {
                 .uri("/todos/{id}", id)
                 .retrieve()
                 .onStatus(status -> status.value() == 404, (req, res) -> {
-                  throw new TodoException.NotFound(id);
+                    throw new TodoException.NotFound(id);
                 })
                 .body(Todo.class);
     }
